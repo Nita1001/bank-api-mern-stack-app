@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const {
+    depositCash,
+    updateCredit,
+    withdrawMoney,
+    transferMoney,
+} = require('../controllers/transactionController.js');
+
+// Deposit cash to a user's account
+router.post('/deposit', depositCash);
+
+module.exports = router;

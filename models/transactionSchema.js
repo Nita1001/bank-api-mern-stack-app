@@ -6,9 +6,9 @@ const transactionSchema = new mongoose.Schema({
         required: true,
         enum: ['withdrawal', 'deposit', 'transfer']
     },
-    userId: {
+    accountId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Account',
         required: true
     },
     amount: {

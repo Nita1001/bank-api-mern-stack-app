@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const connectDb = require('./config/dbConn.js')
 const errorHandler = require('./middleware/errorHandler.js')
-
 const app = express();
 
 // Load environment config.env 
@@ -19,6 +18,8 @@ app.use(express.json());
 app.get('/', (req, res) => res.send('Server running'));
 app.use('/users', require('./routes/users'));
 app.use('/accounts', require('./routes/accounts'));
+app.use('/transactions', require('./routes/transactions'));
+
 
 // Error handling middleware
 app.use(errorHandler);
