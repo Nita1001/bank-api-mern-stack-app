@@ -1,5 +1,6 @@
 const User = require('../models/userSchema.js');
 const { createAccount } = require('./accountController.js')
+
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -35,9 +36,10 @@ exports.createUser = async (req, res) => {
         // create account for the user
         const account = await createAccount(savedUser.id);
         // set account property of the user to the new account
-        savedUser.account = account;
+        savedUser.accountId = account;
         // save updated user
         await savedUser.save();
+
         res.status(201).json(savedUser);
     } catch (err) {
         console.error(err);
