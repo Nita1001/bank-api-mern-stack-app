@@ -4,15 +4,20 @@ const transactionSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['withdrawal', 'deposit']
+        enum: ['withdrawal', 'deposit', 'transfer']
     },
-    user: {
+    userId: {
         type: mongoose.Schema.Type.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     amount: {
         type: Number,
         required: true
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now
     }
 })
 
