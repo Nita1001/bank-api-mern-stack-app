@@ -1,8 +1,8 @@
-const mongoose = required('mongoose');
+const mongoose = require('mongoose');
 
 const accountSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
