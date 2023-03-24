@@ -12,12 +12,11 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
     },
-    accounts: [{
+    account: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account'
-    }]
+    }
 })
 
 module.exports = mongoose.model('User', userSchema);

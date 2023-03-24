@@ -18,6 +18,7 @@ app.use(express.json());
 // Routes
 app.get('/', (req, res) => res.send('Server running'));
 app.use('/users', require('./routes/users'));
+app.use('/accounts', require('./routes/accounts'));
 
 // Error handling middleware
 app.use(errorHandler);
