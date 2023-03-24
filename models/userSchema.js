@@ -18,6 +18,16 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    credit: {
+        type: Number,
+        default: 0,
+        validate: {
+            validator: function (value) {
+                return value >= 0;
+            },
+            message: 'Credit must be a positive number.'
+        }
+    },
     transactions: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Transaction'
