@@ -5,6 +5,7 @@ const {
     updateCredit,
     withdrawMoney,
     transferMoney,
+    getUsersTransactions
 } = require('../controllers/transactionController.js');
 
 // Deposit cash to a user's account
@@ -18,5 +19,9 @@ router.put('/credit', updateCredit);
 
 // Transfer money from one user's account to another with credit
 router.post('/transfer', transferMoney);
+
+//Get transactions 
+router.get('/UsersData/:id', getUsersTransactions);
+
 
 module.exports = router;
