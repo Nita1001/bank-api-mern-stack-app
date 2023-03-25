@@ -11,6 +11,10 @@ const transactionSchema = new mongoose.Schema({
         ref: 'Account',
         required: true
     },
+    toAccountId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account',
+    },
     amount: {
         type: Number,
         required: true
