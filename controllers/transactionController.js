@@ -72,7 +72,23 @@ exports.withdrawMoney = async (req, res) => {
 
 // Update user's credit
 exports.updateCredit = async (req, res) => {
-    console.log('update credit');
+    try {
+        const { userId, accountId, amount } = req.body;
+        const account = await Account.findOneAndUpdate(
+            { _id: accountId, userId: userId },
+            { credit: amount },
+            { new: true, runValidators: true });
+
+        if (!account) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ message: 'Credit updated successfully', account });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Something went wrong' });
+    }
+
 };
 
 exports.transferMoney = () => {
