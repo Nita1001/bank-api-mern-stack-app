@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css?family=Cairo:400,700&subset=arabic");
+body {
+    margin: 10vh 20vw;
+}
+ol.listed {
+    counter-reset: li;
+    list-style: none;
+    padding: 0;
+    text-align: right;
+    font: 16px "Cairo";
+}
+
+ol.listed a {
+    position: relative;
+    display: block;
+    padding: 0.4em 0.8em 0.4em 0.4em;
+    margin: 0.5em 2.5em 0.5em 0;
+    background: #97deff;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease-out;
+}
+
+ol.listed a:hover {
+    background: #111;
+    color: #fff;
+}
+ol.listed a:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    right: -2.5em;
+    top: 50%;
+    margin-top: -1em;
+    background: #111;
+    color: #fff;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+
+ol.listed a:after {
+    position: absolute;
+    content: "";
+    border: 0.5em solid transparent;
+    right: -1em;
+    top: 50%;
+    margin-top: -0.5em;
+    transition: all 0.3s ease-out;
+}
+
+ol.listed a:hover:after {
+    right: -0.5em;
+    border-right-color: #111;
+}
+
+.rounded {
+    counter-reset: li;
+    list-style: none;
+    font: 16px "Cairo";
+    padding: 0;
+    text-align: right;
+}
+.rounded a {
+    position: relative;
+    display: block;
+    padding: 0.4em 2em 0.4em 0.4em;
+    margin: 0.5em 0;
+    background: #a6dfff;
+    color: #444;
+    text-decoration: none;
+    border-radius: 0.3em;
+    transition: 0.3s ease-out;
+}
+.rounded a:hover {
+    background: #b7ffa6;
+}
+.rounded a:hover:before {
+    transform: rotate(360deg);
+}
+.rounded a:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    right: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #446eac;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: 0.3em solid white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    color: #fff;
+    transition: all 0.3s ease-out;
+}
