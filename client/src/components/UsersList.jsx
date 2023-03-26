@@ -55,6 +55,20 @@ const UsersList = () => {
                     </li>
                 ))}
             </ol>
+
+            {selectedUser && (
+                <div>
+                    <h2>
+                        {selectedUser.firstName} {selectedUser.lastName}
+                    </h2>
+                    <p>Email: {selectedUser.email}</p>
+                    <button onClick={handleTransferFunds}>
+                        Transfer Funds
+                    </button>
+                    <button onClick={handleDepositCash}>Deposit Cash</button>
+                    <button onClick={handleWithdrawCash}>Withdraw Cash</button>
+                </div>
+            )}
         </div>
     );
 };
