@@ -9,24 +9,22 @@ const Deposit = ({ users, selectedUser, setCurrentAction }) => {
         setDepositAmount(Number(event.target.value));
     };
 
-    const handleConfirmDeposit = () => {
+    const handleConfirmDeposit = async () => {
         const targetUser = users.find((user) => user._id === selectedUser._id);
         if (targetUser) {
             console.log(
                 `Deposited $${depositAmount} to ${targetUser.firstName} ${targetUser.lastName}`
             );
-            console.log(
-                "11111111",
-                selectedUser._id,
-                selectedUser.accountId,
-                event.target.value
-            );
-            // await depositCash(
-            //     selectedUser.id,
-            //     selectedUser.accountId,
-            //     event.target.value
-            // );
-            // setCurrentAction("");
+            try {
+                await depositCash(
+                    selectedUser._id,
+                    selectedUser.accountId,
+                    depositAmount
+                );
+                setCurrentAction("");
+            } catch (error) {
+                console.error(error);
+            }
         } else {
             console.log("something went wrong");
         }
