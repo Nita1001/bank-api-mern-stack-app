@@ -26,13 +26,6 @@ const UsersList = () => {
         setCurrentAction("withdraw");
     };
 
-    const handleTransferTarget = (targetUser) => {
-        console.log(
-            `Transferred funds from ${selectedUser.firstName} ${selectedUser.lastName} to ${targetUser.firstName} ${targetUser.lastName}`
-        );
-        setCurrentAction("");
-    };
-
     const handleWithdrawAmount = (event) => {
         console.log(
             `Withdrew ${event.target.value} from ${selectedUser.firstName} ${selectedUser.lastName}`
@@ -69,7 +62,6 @@ const UsersList = () => {
                 <TransferFunds
                     users={users}
                     selectedUser={selectedUser}
-                    handleTransferTarget={handleTransferTarget}
                     setCurrentAction={setCurrentAction}
                 />
             )}

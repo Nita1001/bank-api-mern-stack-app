@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
-const Deposit = ({ users, selectedUser }) => {
+const Deposit = ({ users, selectedUser, setCurrentAction }) => {
     const [depositAmount, setDepositAmount] = useState(0);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     const handleDepositAmount = (event) => {
         setDepositAmount(Number(event.target.value));
+        // setCurrentAction("");
     };
 
     const handleConfirmDeposit = () => {

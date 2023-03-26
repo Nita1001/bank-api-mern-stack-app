@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 
-const TransferFunds = ({ selectedUser, users, handleTransferTarget }) => {
+const TransferFunds = ({ selectedUser, users, setCurrentAction }) => {
     const [transferAmount, setTransferAmount] = useState(0);
     const [showConfirmation, setShowConfirmation] = useState(false);
+
+    const handleTransferTarget = (targetUser) => {
+        console.log(
+            `Transferred funds from ${selectedUser.firstName} ${selectedUser.lastName} to ${targetUser.firstName} ${targetUser.lastName}`
+        );
+        setCurrentAction("");
+    };
 
     const handleTransferAmount = (event) => {
         setTransferAmount(Number(event.target.value));
