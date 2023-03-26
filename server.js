@@ -11,22 +11,22 @@ const app = express();
 dotenv.config({ path: './config/config.env' });
 
 // Serve static files from the client's build directory
-app.use(express.static(path.join(__dirname, 'client/dist')));
-
+// app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use("/", express.static("client/dist"));
 
 // Parse request body
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => res.send('Server running'));
-app.use('/users', require('./routes/users'));
-app.use('/accounts', require('./routes/accounts'));
-app.use('/transactions', require('./routes/transactions'));
+app.get('/api', (req, res) => res.send('Server running'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/accounts', require('./routes/accounts'));
+app.use('/api/transactions', require('./routes/transactions'));
 
 // Serve the index.html file for all other requests
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+// });
 
 
 // Error handling middleware
