@@ -4,6 +4,7 @@ import { getUsers, createNewUser, updateUser } from "../api/bankAPI";
 import "./styles/UsersList.style.css";
 import TransferFunds from "./TransferFunds";
 import Deposit from "./Deposit";
+import Withdraw from "./Withdraw";
 
 const UsersList = () => {
     const [users, setUsers] = useState([]);
@@ -24,12 +25,6 @@ const UsersList = () => {
 
     const handleWithdrawCash = () => {
         setCurrentAction("withdraw");
-    };
-
-    const handleWithdrawAmount = (event) => {
-        console.log(
-            `Withdrew ${event.target.value} from ${selectedUser.firstName} ${selectedUser.lastName}`
-        );
     };
 
     return (
@@ -75,10 +70,11 @@ const UsersList = () => {
             )}
 
             {currentAction === "withdraw" && (
-                <div>
-                    <h3>Enter amount to withdraw:</h3>
-                    <input type="number" onChange={handleWithdrawAmount} />
-                </div>
+                <Withdraw
+                    users={users}
+                    selectedUser={selectedUser}
+                    setCurrentAction={setCurrentAction}
+                />
             )}
         </div>
     );

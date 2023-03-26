@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-const Deposit = ({ users, selectedUser, setCurrentAction }) => {
-    const [depositAmount, setDepositAmount] = useState(0);
+const Withdraw = ({ selectedUser, users, setCurrentAction }) => {
+    const [withdrawAmount, setWithdrawAmount] = useState(0);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const handleDepositAmount = (event) => {
-        setDepositAmount(Number(event.target.value));
+    const handleWithdrawAmount = (event) => {
+        setWithdrawAmount(Number(event.target.value));
         // setCurrentAction("");
     };
 
-    const handleConfirmDeposit = () => {
+    const handleConfirmWithdraw = () => {
         const targetUser = users.find((user) => user._id === selectedUser._id);
         if (targetUser) {
             console.log(
-                `Deposited $${depositAmount} to ${targetUser.firstName} ${targetUser.lastName}`
+                `Withdrawn $${withdrawAmount} to ${targetUser.firstName} ${targetUser.lastName}`
             );
         } else {
             console.log("something went wrong");
@@ -21,7 +21,7 @@ const Deposit = ({ users, selectedUser, setCurrentAction }) => {
         setShowConfirmation(false);
     };
 
-    const handleDepositCancel = () => {
+    const handleWithdrawCancel = () => {
         setShowConfirmation(false);
     };
 
@@ -29,27 +29,29 @@ const Deposit = ({ users, selectedUser, setCurrentAction }) => {
         <>
             {showConfirmation ? (
                 <div>
-                    <h3>Confirm Deposit:</h3>
+                    <h3>Confirm Withdraw:</h3>
                     <p>
-                        Deposit $ {depositAmount} to {selectedUser.firstName}
+                        Withdraw $ {withdrawAmount} from{" "}
+                        {selectedUser.firstName}
                     </p>
-                    <button onClick={handleConfirmDeposit}>Confirm</button>
-                    <button onClick={handleDepositCancel}>Cancel</button>
+                    <button onClick={handleConfirmWithdraw}>Confirm</button>
+                    <button onClick={handleWithdrawCancel}>Cancel</button>
                 </div>
             ) : (
                 <div>
-                    <h3>Enter amount to deposit:</h3>
+                    <h3>Enter amount to withdraw:</h3>
                     <input
                         type="number"
                         min="0"
-                        onChange={handleDepositAmount}
+                        onChange={handleWithdrawAmount}
                     />
                     <button onClick={() => setShowConfirmation(true)}>
-                        Deposit
+                        Withdraw
                     </button>
                 </div>
             )}
         </>
     );
 };
-export default Deposit;
+
+export default Withdraw;
