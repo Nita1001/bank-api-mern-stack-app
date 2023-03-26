@@ -69,6 +69,29 @@ const UsersList = () => {
                     <button onClick={handleWithdrawCash}>Withdraw Cash</button>
                 </div>
             )}
+
+            {currentAction === "transfer" && (
+                <TransferFunds
+                    users={users}
+                    selectedUser={selectedUser}
+                    handleTransferTarget={handleTransferTarget}
+                    setCurrentAction={setCurrentAction}
+                />
+            )}
+
+            {currentAction === "deposit" && (
+                <div>
+                    <h3>Enter amount to deposit:</h3>
+                    <input type="number" onChange={handleDepositAmount} />
+                </div>
+            )}
+
+            {currentAction === "withdraw" && (
+                <div>
+                    <h3>Enter amount to withdraw:</h3>
+                    <input type="number" onChange={handleWithdrawAmount} />
+                </div>
+            )}
         </div>
     );
 };
