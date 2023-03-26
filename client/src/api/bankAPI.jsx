@@ -1,42 +1,55 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const getUsers = async () => {
-  try {
-    const response = await axios.get('/api/users');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    try {
+        const response = await axios.get("/api/users");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const createNewUser = async () => {
     try {
-      const response = await axios.post('/api/users', {
-        "firstName": '999',
-        "lastName": "999",
-        "email": "999@mail.com"
-      });
-      console.log(response);
+        const response = await axios.post("/api/users", {
+            firstName: "999",
+            lastName: "999",
+            email: "999@mail.com",
+        });
+        console.log(response);
+    } catch (error) {
+        console.log("error creating user api", error);
+        throw error;
+    }
+};
 
-    } catch (error) {
-        console.log('error creating user api', error)
-      throw error;
-    }
-  };
-  
-  export const updateUser = async (userId, firstName, lastName, email) => {
+export const updateUser = async (userId, firstName, lastName, email) => {
     try {
-      const response = await axios.put(`/api/users/${userId}`, {
-        "firstName": `${firstName}`,
-        "lastName": `${lastName}`,
-        "email": `${email}`
-      });
-      console.log(response);
+        const response = await axios.put(`/api/users/${userId}`, {
+            firstName: `${firstName}`,
+            lastName: `${lastName}`,
+            email: `${email}`,
+        });
+        console.log(response);
     } catch (error) {
-        console.log('error creating user api', error)
-      throw error;
+        console.log("error creating user api", error);
+        throw error;
     }
-  };
+};
+
+export const depositCash = async (userId, accountId, amount) => {
+    try {
+        const response = await axios.post(`/api/transactions/deposit`, {
+            userId: `${userId}`,
+            accountId: `${accountId}`,
+            amount: `${amount}`,
+        });
+        console.log(response);
+    } catch (error) {
+        console.log("error creating user api", error);
+        throw error;
+    }
+};
 
 // export const getAccounts = async () => {
 //   try {

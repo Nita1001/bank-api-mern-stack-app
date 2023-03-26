@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { depositCash } from "../api/bankAPI";
 
 const Deposit = ({ users, selectedUser, setCurrentAction }) => {
     const [depositAmount, setDepositAmount] = useState(0);
@@ -6,7 +7,6 @@ const Deposit = ({ users, selectedUser, setCurrentAction }) => {
 
     const handleDepositAmount = (event) => {
         setDepositAmount(Number(event.target.value));
-        // setCurrentAction("");
     };
 
     const handleConfirmDeposit = () => {
@@ -15,6 +15,18 @@ const Deposit = ({ users, selectedUser, setCurrentAction }) => {
             console.log(
                 `Deposited $${depositAmount} to ${targetUser.firstName} ${targetUser.lastName}`
             );
+            console.log(
+                "11111111",
+                selectedUser._id,
+                selectedUser.accountId,
+                event.target.value
+            );
+            // await depositCash(
+            //     selectedUser.id,
+            //     selectedUser.accountId,
+            //     event.target.value
+            // );
+            // setCurrentAction("");
         } else {
             console.log("something went wrong");
         }
