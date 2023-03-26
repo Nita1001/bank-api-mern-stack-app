@@ -3,6 +3,7 @@ import { getUsers, createNewUser, updateUser } from "../api/bankAPI";
 
 import "./styles/UsersList.style.css";
 import TransferFunds from "./TransferFunds";
+import Deposit from "./Deposit";
 
 const UsersList = () => {
     const [users, setUsers] = useState([]);
@@ -30,12 +31,6 @@ const UsersList = () => {
             `Transferred funds from ${selectedUser.firstName} ${selectedUser.lastName} to ${targetUser.firstName} ${targetUser.lastName}`
         );
         setCurrentAction("");
-    };
-
-    const handleDepositAmount = (event) => {
-        console.log(
-            `Deposited ${event.target.value} to ${selectedUser.firstName} ${selectedUser.lastName}`
-        );
     };
 
     const handleWithdrawAmount = (event) => {
@@ -80,10 +75,11 @@ const UsersList = () => {
             )}
 
             {currentAction === "deposit" && (
-                <div>
-                    <h3>Enter amount to deposit:</h3>
-                    <input type="number" onChange={handleDepositAmount} />
-                </div>
+                <Deposit
+                    users={users}
+                    selectedUser={selectedUser}
+                    setCurrentAction={setCurrentAction}
+                />
             )}
 
             {currentAction === "withdraw" && (

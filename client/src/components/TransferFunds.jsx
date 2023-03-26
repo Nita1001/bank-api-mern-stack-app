@@ -22,7 +22,7 @@ const TransferFunds = ({ selectedUser, users, handleTransferTarget }) => {
     };
 
     return (
-        <div>
+        <>
             {showConfirmation ? (
                 <div>
                     <h3>Confirm Transfer:</h3>
@@ -64,7 +64,7 @@ const TransferFunds = ({ selectedUser, users, handleTransferTarget }) => {
                     </ol>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 
