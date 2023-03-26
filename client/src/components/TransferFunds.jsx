@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const TransferFunds = ({ selectedUser, users, setCurrentAction }) => {
-    const [transferAmount, setTransferAmount] = useState("");
+    const [transferAmount, setTransferAmount] = useState(0);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     const handleTransferTarget = (targetUser) => {
@@ -54,7 +54,6 @@ const TransferFunds = ({ selectedUser, users, setCurrentAction }) => {
                     <input
                         type="number"
                         min="0"
-                        value={transferAmount}
                         onChange={handleTransferAmount}
                     />
                     <h3>Select target user to transfer funds to:</h3>
