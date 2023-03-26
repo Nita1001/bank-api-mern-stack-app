@@ -5,14 +5,12 @@ import "./styles/UsersList.style.css";
 import TransferFunds from "./TransferFunds";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
+import CreateNewUser from "./CreateNewUser";
 
 const UsersList = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [currentAction, setCurrentAction] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
 
     useEffect(() => {
         getUsers().then((data) => setUsers(data));
@@ -28,31 +26,6 @@ const UsersList = () => {
 
     const handleWithdrawCash = () => {
         setCurrentAction("withdraw");
-    };
-
-    const toggleForm = () => {
-        setShowForm(!showForm);
-    };
-    const handleConfirmCreateNewUser = () => {
-        createNewUser({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-        }).then((response) => {
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setCurrentAction("");
-            console.log("rrrrrr", response);
-            // setUsers([...users, response.data]);
-        });
-    };
-
-    const handleCancelCreateNewUser = () => {
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setCurrentAction("");
     };
 
     return (
@@ -104,35 +77,7 @@ const UsersList = () => {
                     setCurrentAction={setCurrentAction}
                 />
             )}
-
-            {currentAction === "create" && (
-                <div>
-                    <input
-                        type="text"
-                        placeholder="First name"
-                        value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Last name"
-                        value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                    />
-                    <button onClick={handleConfirmCreateNewUser}>Create</button>
-                    <button onClick={handleCancelCreateNewUser}>Cancel</button>
-                </div>
-            )}
-
-            <button onClick={() => setCurrentAction("create")}>
-                Create New user
-            </button>
+            <CreateNewUser />
         </div>
     );
 };
