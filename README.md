@@ -53,5 +53,10 @@ This is a bank API that allows a bank manager to manage users of the bank by per
 
 This project is a bank API that provides a simple way for a bank manager to manage users of the bank. It uses MongoDB Atlas for the database, Express.js for the backend, React for the frontend, and Postman for testing. The project includes several features and filters, and error messages are sent to the client when use cases are not satisfied.
 
-### License
-MIT License
+## Contributing
+
+Contributions are welcomed If you find any bugs or have suggestions for improving, please create an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
