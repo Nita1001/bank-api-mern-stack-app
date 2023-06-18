@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { getUsers, createNewUser, updateUser } from "../api/bankAPI";
-
-import "./styles/UsersList.style.css";
-import "./styles/createNewUser.style.css";
+import { getUsers } from "../api/bankAPI";
 
 import TransferFunds from "./TransferFunds";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
+
+import "./styles/UsersList.style.css";
+import "./styles/createNewUser.style.css";
 
 const actionComponents = {
     transfer: TransferFunds,
@@ -19,7 +19,6 @@ const UsersList = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [currentAction, setCurrentAction] = useState("");
     const [showUsersList, setShowUsersList] = useState(true);
-    const [showActionComponent, setShowActionComponent] = useState(false);
 
     useEffect(() => {
         getUsers()
@@ -29,58 +28,44 @@ const UsersList = () => {
             });
     }, []);
 
-    const handleAction = (action) => {
-        if (currentAction === action) {
-            setCurrentAction("");
-            setShowActionComponent(false);
-        } else {
-            setCurrentAction(action);
-            setShowActionComponent(true);
-        }
-    };
-
     const handleToggleUsersList = () => {
-        setShowUsersList(!showUsersList);
+        setShowUsersList((prevShowUsersList) => !prevShowUsersList);
         setSelectedUser(null);
-        setShowActionComponent(false);
         setCurrentAction("");
     };
 
     const handleUserSelection = (user) => {
         setSelectedUser((prevSelectedUser) => {
-            // Toggle user selection
-            if (prevSelectedUser && prevSelectedUser._id === user._id) {
-                return null; // Deselect
-            } else {
-                return user; // Select
-            }
+            return prevSelectedUser && prevSelectedUser._id === user._id
+                ? null
+                : user;
         });
-        setShowActionComponent(false);
         setCurrentAction("");
+    };
+
+    const handleAction = (action) => {
+        setCurrentAction((prevCurrentAction) =>
+            prevCurrentAction === action ? "" : action
+        );
     };
 
     const renderActionComponent = () => {
         const ActionComponent = actionComponents[currentAction];
-        if (ActionComponent && showActionComponent) {
-            return (
-                <ActionComponent
-                    users={users}
-                    selectedUser={selectedUser}
-                    setCurrentAction={setCurrentAction}
-                />
-            );
-        }
-        return null;
+        return ActionComponent && selectedUser ? (
+            <ActionComponent
+                users={users}
+                selectedUser={selectedUser}
+                setCurrentAction={setCurrentAction}
+            />
+        ) : null;
     };
 
     return (
         <div className="">
-            {/* Toggle users list */}
             <button onClick={handleToggleUsersList}>
                 {showUsersList ? "Hide Users List" : "Show Users List"}
             </button>
 
-            {/* Conditionally render users list */}
             {showUsersList && (
                 <ol className="listed">
                     {users.map((user) => (
@@ -123,7 +108,6 @@ const UsersList = () => {
                 </div>
             )}
 
-            {/* Render appropriate action component */}
             {renderActionComponent()}
         </div>
     );
