@@ -6,6 +6,8 @@ ol.listed {
     counter-reset: li;
     list-style: none;
     padding: 0;
+    margin: 0 auto;
+    width: 100%;
     text-align: right;
     font: 16px "Cairo";
 }
@@ -13,11 +15,12 @@ ol.listed {
 ol.listed a {
     position: relative;
     display: block;
-    padding: 0.4em 0.8em 0.4em 0.4em;
-    margin: 0.5em 2.5em 0.5em 0;
-    background: #97deff;
+    width: 40%;
     color: #000;
+    background: #97deff;
     text-decoration: none;
+    margin: 0.4rem auto;
+    padding: 0.4em 0.8em 0.4em 0.4em;
     transition: all 0.3s ease-out;
 }
 
@@ -97,4 +100,8 @@ ol.listed a:hover:after {
     border-radius: 2em;
     color: #fff;
     transition: all 0.3s ease-out;
+}
+
+.users-data {
+    font-size: 10px;
 }
