@@ -14,54 +14,36 @@ const actionComponents = {
     withdraw: Withdraw,
 };
 
-const renderActionComponent = (
-    currentAction,
-    users,
-    selectedUser,
-    setCurrentAction
-) => {
-    const ActionComponent = actionComponents[currentAction];
-    if (ActionComponent) {
-        return (
-            <ActionComponent
-                users={users}
-                selectedUser={selectedUser}
-                setCurrentAction={setCurrentAction}
-            />
-        );
-    }
-    return null;
-};
-
 const UsersList = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [currentAction, setCurrentAction] = useState("");
     const [showUsersList, setShowUsersList] = useState(true);
+    const [showActionComponent, setShowActionComponent] = useState(false);
 
     useEffect(() => {
-        getUsers().then((data) =>
-            setUsers(data).catch((error) => {
+        getUsers()
+            .then((data) => setUsers(data))
+            .catch((error) => {
                 console.error("Error fetching users", error);
-            })
-        );
+            });
     }, []);
 
-    const handleTransferFunds = () => {
-        setCurrentAction("transfer");
-    };
-
-    const handleDepositCash = () => {
-        setCurrentAction("deposit");
-    };
-
-    const handleWithdrawCash = () => {
-        setCurrentAction("withdraw");
+    const handleAction = (action) => {
+        if (currentAction === action) {
+            setCurrentAction("");
+            setShowActionComponent(false);
+        } else {
+            setCurrentAction(action);
+            setShowActionComponent(true);
+        }
     };
 
     const handleToggleUsersList = () => {
         setShowUsersList(!showUsersList);
-        handleUserSelection(selectedUser);
+        setSelectedUser(null);
+        setShowActionComponent(false);
+        setCurrentAction("");
     };
 
     const handleUserSelection = (user) => {
@@ -73,6 +55,22 @@ const UsersList = () => {
                 return user; // Select
             }
         });
+        setShowActionComponent(false);
+        setCurrentAction("");
+    };
+
+    const renderActionComponent = () => {
+        const ActionComponent = actionComponents[currentAction];
+        if (ActionComponent && showActionComponent) {
+            return (
+                <ActionComponent
+                    users={users}
+                    selectedUser={selectedUser}
+                    setCurrentAction={setCurrentAction}
+                />
+            );
+        }
+        return null;
     };
 
     return (
@@ -107,21 +105,26 @@ const UsersList = () => {
                         {selectedUser.firstName} {selectedUser.lastName}
                     </h2>
                     <p>Email: {selectedUser.email}</p>
-                    <button onClick={handleTransferFunds}>
-                        Transfer Funds
+                    <button onClick={() => handleAction("transfer")}>
+                        {currentAction === "transfer"
+                            ? "Hide Transfer"
+                            : "Transfer Funds"}
                     </button>
-                    <button onClick={handleDepositCash}>Deposit Cash</button>
-                    <button onClick={handleWithdrawCash}>Withdraw Cash</button>
+                    <button onClick={() => handleAction("deposit")}>
+                        {currentAction === "deposit"
+                            ? "Hide Deposit"
+                            : "Deposit Cash"}
+                    </button>
+                    <button onClick={() => handleAction("withdraw")}>
+                        {currentAction === "withdraw"
+                            ? "Hide Withdraw"
+                            : "Withdraw Cash"}
+                    </button>
                 </div>
             )}
 
             {/* Render appropriate action component */}
-            {renderActionComponent(
-                currentAction,
-                users,
-                selectedUser,
-                setCurrentAction
-            )}
+            {renderActionComponent()}
         </div>
     );
 };
