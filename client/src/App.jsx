@@ -1,14 +1,16 @@
 import { useState } from "react";
 import UsersList from "./components/UsersList";
+import CreateNewUser from "./components/CreateNewUser";
+
 import "./App.css";
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
         <div className="App">
-            <h1>Hey :)</h1>
-            <UsersList />
+            <div className="bank">
+                <UsersList />
+                <CreateNewUser />
+            </div>
         </div>
     );
 }

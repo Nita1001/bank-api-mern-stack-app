@@ -2,18 +2,49 @@ import { useState, useEffect } from "react";
 import { getUsers, createNewUser, updateUser } from "../api/bankAPI";
 
 import "./styles/UsersList.style.css";
+import "./styles/createNewUser.style.css";
+
 import TransferFunds from "./TransferFunds";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
-import CreateNewUser from "./CreateNewUser";
+
+const actionComponents = {
+    transfer: TransferFunds,
+    deposit: Deposit,
+    withdraw: Withdraw,
+};
+
+const renderActionComponent = (
+    currentAction,
+    users,
+    selectedUser,
+    setCurrentAction
+) => {
+    const ActionComponent = actionComponents[currentAction];
+    if (ActionComponent) {
+        return (
+            <ActionComponent
+                users={users}
+                selectedUser={selectedUser}
+                setCurrentAction={setCurrentAction}
+            />
+        );
+    }
+    return null;
+};
 
 const UsersList = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [currentAction, setCurrentAction] = useState("");
+    const [showUsersList, setShowUsersList] = useState(true);
 
     useEffect(() => {
-        getUsers().then((data) => setUsers(data));
+        getUsers().then((data) =>
+            setUsers(data).catch((error) => {
+                console.error("Error fetching users", error);
+            })
+        );
     }, []);
 
     const handleTransferFunds = () => {
@@ -28,20 +59,50 @@ const UsersList = () => {
         setCurrentAction("withdraw");
     };
 
-    return (
-        <div className="App">
-            <h1>Users</h1>
+    const handleToggleUsersList = () => {
+        setShowUsersList(!showUsersList);
+        handleUserSelection(selectedUser);
+    };
 
-            <ol className="listed">
-                {users.map((user) => (
-                    <li key={user._id} onClick={() => setSelectedUser(user)}>
-                        <a href="#">{user.firstName}</a>
-                    </li>
-                ))}
-            </ol>
+    const handleUserSelection = (user) => {
+        setSelectedUser((prevSelectedUser) => {
+            // Toggle user selection
+            if (prevSelectedUser && prevSelectedUser._id === user._id) {
+                return null; // Deselect
+            } else {
+                return user; // Select
+            }
+        });
+    };
+
+    return (
+        <div className="">
+            {/* Toggle users list */}
+            <button onClick={handleToggleUsersList}>
+                {showUsersList ? "Hide Users List" : "Show Users List"}
+            </button>
+
+            {/* Conditionally render users list */}
+            {showUsersList && (
+                <ol className="listed">
+                    {users.map((user) => (
+                        <li
+                            key={user._id}
+                            onClick={() => handleUserSelection(user)}
+                            className={
+                                selectedUser && selectedUser._id === user._id
+                                    ? "selected"
+                                    : ""
+                            }
+                        >
+                            <a href="#">{user.firstName}</a>
+                        </li>
+                    ))}
+                </ol>
+            )}
 
             {selectedUser && (
-                <div>
+                <div className="users-data">
                     <h2>
                         {selectedUser.firstName} {selectedUser.lastName}
                     </h2>
@@ -54,30 +115,13 @@ const UsersList = () => {
                 </div>
             )}
 
-            {currentAction === "transfer" && (
-                <TransferFunds
-                    users={users}
-                    selectedUser={selectedUser}
-                    setCurrentAction={setCurrentAction}
-                />
+            {/* Render appropriate action component */}
+            {renderActionComponent(
+                currentAction,
+                users,
+                selectedUser,
+                setCurrentAction
             )}
-
-            {currentAction === "deposit" && (
-                <Deposit
-                    users={users}
-                    selectedUser={selectedUser}
-                    setCurrentAction={setCurrentAction}
-                />
-            )}
-
-            {currentAction === "withdraw" && (
-                <Withdraw
-                    users={users}
-                    selectedUser={selectedUser}
-                    setCurrentAction={setCurrentAction}
-                />
-            )}
-            <CreateNewUser />
         </div>
     );
 };

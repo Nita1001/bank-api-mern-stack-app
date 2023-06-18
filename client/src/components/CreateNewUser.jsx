@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createNewUser } from "../api/bankAPI";
 
+import "./styles/createNewUser.style.css";
+
 const CreateNewUser = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -24,7 +26,7 @@ const CreateNewUser = () => {
                 setLastName("");
                 setEmail("");
                 setCreationConfirmed(true);
-                console.log("rrrrrr", response);
+                console.log("confirm created user res:", response);
                 setUsers([...users, response.data]);
             })
             .catch((error) => {
@@ -40,11 +42,11 @@ const CreateNewUser = () => {
     };
 
     return (
-        <>
+        <div className="create-new-user-container">
             {!creationConfirmed && (
                 <>
                     {showForm ? (
-                        <>
+                        <div className="form-container">
                             <input
                                 type="text"
                                 placeholder="First name"
@@ -75,13 +77,13 @@ const CreateNewUser = () => {
                             <button onClick={handleCancelCreateNewUser}>
                                 Cancel
                             </button>
-                        </>
+                        </div>
                     ) : (
                         <button onClick={toggleCreate}>Create New user</button>
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 };
 
